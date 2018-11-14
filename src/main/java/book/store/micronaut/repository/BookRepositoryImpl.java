@@ -53,7 +53,7 @@ public class BookRepositoryImpl implements BookRepository {
     public List<Book> findAll(@NotNull SortingAndOrderArguments args) {
         String qlString = "SELECT b FROM book as b";
         if (args.getOrder().isPresent() && args.getSort().isPresent() && VALID_PROPERTY_NAMES.contains(args.getSort().get())) {
-            qlString += " ORDER BY g." + args.getSort().get() + " " + args.getOrder().get().toLowerCase();
+            qlString += " ORDER BY b." + args.getSort().get() + " " + args.getOrder().get().toLowerCase();
         }
         TypedQuery<Book> query = entityManager.createQuery(qlString, Book.class);
         query.setMaxResults(args.getMax().orElseGet(applicationConfiguration::getMax));
