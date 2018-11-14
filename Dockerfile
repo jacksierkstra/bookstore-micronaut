@@ -2,7 +2,7 @@ FROM openjdk:8-jdk-alpine as BUILD
 
 COPY . /usr/src/app
 WORKDIR /usr/src/app
-RUN ./gradlew build
+#RUN ./gradlew build
 
 FROM openjdk:8-jre-alpine
 EXPOSE 8080
