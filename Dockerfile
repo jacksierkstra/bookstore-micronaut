@@ -1,4 +1,12 @@
-FROM openjdk:8u171-alpine3.7
-RUN apk --no-cache add curl
-COPY build/libs/*-all.jar book-store-micronaut.jar
-CMD java ${JAVA_OPTS} -jar book-store-micronaut.jar
+FROM openjdk:8-jdk-alpine as BUILD
+
+COPY . /usr/src/app
+WORKDIR /usr/src/app
+RUN ./gradlew build
+
+FROM openjdk:8-jre-alpine
+EXPOSE 8080
+COPY --from=BUILD /usr/src/app/build/libs /opt/target
+WORKDIR /opt/target
+
+CMD ["java", "-jar", "book-store-micronaut-0.1-all.jar"]
