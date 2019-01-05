@@ -15,4 +15,6 @@ public interface BookRepository {
     void deleteById(@NotNull Long id);
 
     List<Book> findAll(@NotNull SortingAndOrderArguments args);
+
+    List<Book> findAll();
 }

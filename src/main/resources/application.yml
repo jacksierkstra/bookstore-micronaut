@@ -9,8 +9,6 @@ datasources:
         driverClassName: ${JDBC_DRIVER:org.h2.Driver}
 jpa:
     default:
-        packages-to-scan:
-        - 'book.store.micronaut'
         properties:
             hibernate:
                 hbm2ddl:

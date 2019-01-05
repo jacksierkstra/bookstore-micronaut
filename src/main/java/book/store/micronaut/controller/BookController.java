@@ -5,16 +5,13 @@ import book.store.micronaut.repository.BookRepository;
 import book.store.micronaut.repository.SortingAndOrderArguments;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.*;
-import io.micronaut.validation.Validated;
 
-import javax.annotation.Nullable;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-@Validated
-@Controller("/api/books")
+@Controller("/books")
 public class BookController {
 
     private final BookRepository bookRepository;
@@ -23,13 +20,9 @@ public class BookController {
         this.bookRepository = bookRepository;
     }
 
-    @Get("{?args}")
-    public HttpResponse<List<Book>> getBooks(@Nullable @Valid SortingAndOrderArguments args) {
-        SortingAndOrderArguments arguments = args;
-        if (arguments == null) {
-            arguments = new SortingAndOrderArguments();
-        }
-        return HttpResponse.ok(this.bookRepository.findAll(arguments));
+    @Get
+    public HttpResponse<List<Book>> getBooks() {
+        return HttpResponse.ok(this.bookRepository.findAll());
     }
 
     @Get("/{bookId}")

@@ -60,4 +60,12 @@ public class BookRepositoryImpl implements BookRepository {
         args.getOffset().ifPresent(query::setFirstResult);
         return query.getResultList();
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Book> findAll() {
+        String qlString = "SELECT b FROM book as b";
+        TypedQuery<Book> query = entityManager.createQuery(qlString, Book.class);
+        return query.getResultList();
+    }
 }
